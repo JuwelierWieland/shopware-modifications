@@ -10,52 +10,70 @@ namespace WielandShopwareModifications;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Tools\SchemaTool;
+use Shopware\Bundle\MediaBundle\Struct\MediaPosition;
+use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\InstallContext;
-use Shopware\Components\Plugin\Context\UpdateContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
-use Shopware\Components\Plugin\Context\ActivateContext;
-use Shopware\Components\Plugin\Context\DeactivateContext;
 use Enlight_Controller_ActionEventArgs as ActionEventArgs;
 use Shopware\Components\Theme\LessDefinition;
+use WielandShopwareModifications\Models\Font;
 
 class WielandShopwareModifications extends Plugin
 {
     public function install(InstallContext $context)
     {
-        parent::install($context);
-    }
+        $this->createSchema();
 
-    public function update(UpdateContext $context)
-    {
-        parent::update($context);
+        parent::install($context);
     }
 
     public function uninstall(UninstallContext $context)
     {
+        if (!$context->keepUserData()) {
+            $this->removeSchema();
+        }
+
         parent::uninstall($context);
     }
 
-    public function activate(ActivateContext $context)
+    private function createSchema()
     {
-        parent::activate($context);
+        /** @var ModelManager $entityManager */
+        $entityManager = $this->container->get('models');
+        $schemaTool = new SchemaTool($entityManager);
+
+        $classes = [
+            $entityManager->getClassMetadata(Font::class)
+        ];
+
+        $schemaTool->createSchema($classes);
     }
 
-    public function deactivate(DeactivateContext $context)
+    private function removeSchema()
     {
-        parent::deactivate($context);
+        /** @var ModelManager $entityManager */
+        $entityManager = $this->container->get('models');
+        $schemaTool = new SchemaTool($entityManager);
+
+        $classes = [
+            $entityManager->getClassMetadata(Font::class)
+        ];
+
+        $schemaTool->dropSchema($classes);
     }
 
     public static function getSubscribedEvents()
     {
         return [
-            ActionEventArgs::POST_SECURE_EVENT . '_Frontend' => 'onPostSecureFrontend',
-            ActionEventArgs::POST_SECURE_EVENT . '_Widgets' => 'onPostSecureFrontend',
-            'Theme_Compiler_Collect_Plugin_Less' => 'addLessFiles'
+            ActionEventArgs::POST_SECURE_EVENT => 'onPostSecure',
+            'Theme_Compiler_Collect_Plugin_Less' => 'addLessFiles',
+            'Shopware_Collect_MediaPositions' => 'collectMediaPositions'
         ];
     }
 
-    public function onPostSecureFrontend()
+    public function onPostSecure()
     {
         /** @var \Enlight_Template_Manager $templateManager */
         $templateManager = $this->container->get('template');
@@ -69,5 +87,12 @@ class WielandShopwareModifications extends Plugin
         ]);
 
         return new ArrayCollection([$lessDefinition]);
+    }
+
+    public function collectMediaPositions()
+    {
+        return new ArrayCollection([
+            new MediaPosition('wieland_gravur_font', 'font_file_media_id')
+        ]);
     }
 }
