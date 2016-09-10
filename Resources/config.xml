@@ -8,5 +8,15 @@
             <label lang="en">Display availability in product listing</label>
             <value>true</value>
         </element>
+        <element type="text" required="true">
+            <name>fontFieldOrderNumber</name>
+            <label lang="de">Bestellnummer des Schriftartfelds</label>
+            <label lang="en">Ordernumber of the font-field</label>
+        </element>
+        <element type="text" required="true">
+            <name>textFieldOrderNumber</name>
+            <label lang="de">Bestellnummer des Textfelds</label>
+            <label lang="en">Ordernumber of the text-field</label>
+        </element>
     </elements>
 </config>

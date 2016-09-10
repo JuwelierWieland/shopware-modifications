@@ -14,6 +14,7 @@ Ext.define("Shopware.apps.WielandGravurFonts.model.Font", {
         { name: "name", type: "string" },
         { name: "label", type: "string" },
         { name: "active", type: "boolean" },
+        { name: "position", type: "int" },
         { name: "fontFileMediaId", type: "int" }
     ]
 });

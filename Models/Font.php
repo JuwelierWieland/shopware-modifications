@@ -47,6 +47,12 @@ class Font extends ModelEntity
     private $active;
 
     /**
+     * @var int $position
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
+    /**
      * @var int $fontFileMediaId
      * @ORM\Column(name="font_file_media_id", type="integer")
      */
@@ -118,6 +124,24 @@ class Font extends ModelEntity
     public function setActive(bool $active): Font
     {
         $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     * @return Font
+     */
+    public function setPosition(int $position): Font
+    {
+        $this->position = $position;
         return $this;
     }
 

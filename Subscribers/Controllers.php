@@ -25,12 +25,18 @@ class Controllers implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Dispatcher_ControllerPath_Backend_WielandGravurFonts' => 'registerWielandGravurFontsController'
+            'Enlight_Controller_Dispatcher_ControllerPath_Backend_WielandGravurFonts' => 'registerBackendGravurFontsController',
+            'Enlight_Controller_Dispatcher_ControllerPath_Frontend_WielandGravurFonts' => 'registerFrontendGravurFontsController'
         ];
     }
 
-    public function registerWielandGravurFontsController()
+    public function registerBackendGravurFontsController()
     {
-        return $this->plugin->getPath() . '/Controllers/WielandGravurFonts.php';
+        return $this->plugin->getPath() . '/Controllers/Backend/WielandGravurFonts.php';
+    }
+
+    public function registerFrontendGravurFontsController()
+    {
+        return $this->plugin->getPath() . '/Controllers/Frontend/WielandGravurFonts.php';
     }
 }

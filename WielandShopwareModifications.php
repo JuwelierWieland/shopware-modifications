@@ -77,7 +77,7 @@ class WielandShopwareModifications extends Plugin
     {
         /** @var \Enlight_Template_Manager $templateManager */
         $templateManager = $this->container->get('template');
-        $templateManager->addTemplateDir($this->getPath() . '/Resources/views/');
+        $templateManager->addTemplateDir($this->getPath() . '/Resources/views/', null, \Enlight_Template_Manager::POSITION_PREPEND);
     }
 
     public function addLessFiles()

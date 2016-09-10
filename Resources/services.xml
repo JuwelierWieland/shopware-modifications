@@ -3,6 +3,11 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <service id="wieland_shopware_modifications.font_service"
+                 class="WielandShopwareModifications\Services\FontService">
+            <argument type="service" id="models"/>
+            <argument type="service" id="shopware_media.media_service"/>
+        </service>
         <service id="wieland_shopware_modifications.subscriber.controllers"
                  class="WielandShopwareModifications\Subscribers\Controllers">
             <tag name="shopware.event_subscriber"/>
@@ -10,6 +15,11 @@
         <service id="wieland_shopware_modifications.subscriber.listing_availability"
                  class="WielandShopwareModifications\Subscribers\ListingAvailability">
             <argument type="service" id="config"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+        <service id="wieland_shopware_modifications.subscriber.font_preview"
+                 class="WielandShopwareModifications\Subscribers\FontPreview">
+            <argument type="service" id="wieland_shopware_modifications.font_service"/>
             <tag name="shopware.event_subscriber"/>
         </service>
     </services>
