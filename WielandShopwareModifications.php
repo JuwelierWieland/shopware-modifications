@@ -69,6 +69,7 @@ class WielandShopwareModifications extends Plugin
         return [
             ActionEventArgs::POST_SECURE_EVENT => 'onPostSecure',
             'Theme_Compiler_Collect_Plugin_Less' => 'addLessFiles',
+            'Theme_Compiler_Collect_Plugin_Javascript' => 'addJsFiles',
             'Shopware_Collect_MediaPositions' => 'collectMediaPositions'
         ];
     }
@@ -87,6 +88,15 @@ class WielandShopwareModifications extends Plugin
         ]);
 
         return new ArrayCollection([$lessDefinition]);
+    }
+
+    public function addJsFiles()
+    {
+        $jsFiles = [
+            $this->getPath() . '/Resources/views/frontend/_public/js/font_overview.js'
+        ];
+
+        return new ArrayCOllection($jsFiles);
     }
 
     public function collectMediaPositions()
