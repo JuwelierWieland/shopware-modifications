@@ -6,7 +6,7 @@
         {$option['name']}{if $option['required']}&nbsp;**{/if}
 
         {block name="frontend_detail_swag_custom_products_options_font_overview_link"}
-            {if $option['ordernumber'] == {config name="WielandShopwareModifications::fontFieldOrderNumber"}}
+            {if $option['ordernumber']|strpos:{config name="WielandShopwareModifications::fontFieldOrderNumber"} === 0}
                 <span class="font--overview" data-content data-modalbox="true" data-targetselector="a" data-mode="ajax">
                     <a title="{s name="FontOverview"}Übersicht{/s}"
                        href="{url controller="WielandGravurFonts" action="fontOverviewModal"}">(Übersicht)</a>
