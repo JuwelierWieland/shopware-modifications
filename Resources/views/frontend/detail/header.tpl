@@ -12,5 +12,12 @@
             }
             {/foreach}
         </style>
+        <script type="text/javascript">
+            wielandFonts = {
+                {foreach from=$wielandFonts item=font}
+                    "{$font->getLabel()}": "{$font->getName()}{$font->getId()}",
+                {/foreach}
+            };
+        </script>
     {/block}
 {/block}

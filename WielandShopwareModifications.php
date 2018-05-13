@@ -93,7 +93,8 @@ class WielandShopwareModifications extends Plugin
     public function addJsFiles()
     {
         $jsFiles = [
-            $this->getPath() . '/Resources/views/frontend/_public/js/font_overview.js'
+            $this->getPath() . '/Resources/views/frontend/_public/js/font_overview.js',
+            $this->getPath() . '/Resources/views/frontend/_public/js/font_preview.js'
         ];
 
         return new ArrayCOllection($jsFiles);
