@@ -29,7 +29,9 @@ class FontPreview implements SubscriberInterface
         ];
     }
 
-    public function onPostSecureFrontendDetail()
+    public function onPostSecureFrontendDetail(\Enlight_Controller_ActionEventArgs $args)
     {
+        $view = $args->getSubject()->View();
+        $view->assign('wielandFonts', $this->fontService->getFonts());
     }
 }
